@@ -85,24 +85,6 @@ radical_k9/
 └── docker-compose.yml    # Configuración de Docker Compose
 ```
 
-## Cómo ejecutar el proyecto
-
-1. Asegúrate de tener Docker y Docker Compose instalados
-
-2. Clona el repositorio
-   ```bash
-   git clone https://github.com/jhonicm/radical_k9.git
-   ```
-
-3. Navega al directorio del proyecto
-   ```bash
-   cd radical_k9
-   ```
-
-4. Inicia los contenedores
-   ```bash
-   docker-compose up --build
-   ```
 
 5. Accede a la aplicación:
    - **Frontend (Tienda)**: `http://localhost:5000`
@@ -151,16 +133,8 @@ radical_k9/
 - `/pedidos/{id}` - Operaciones sobre un pedido específico (GET)
 - `/pedidos/{id}/estado` - Actualizar estado de un pedido (PUT)
 
-## Capturas de pantalla
-
-![Página principal](docs/screenshots/home.png)
-![Catálogo de productos](docs/screenshots/productos.png)
-![Panel de administración](docs/screenshots/admin.png)
 
 ## Autores
 
-- **Jhon Carlos Mora** - *Desarrollo completo* - [jhonicm](https://github.com/jhonicm)
+- **Jhon Cordova** - *Desarrollo completo* - [jhonicm](https://github.com/jhonicm)
 
-## Licencia
-
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE.md](LICENSE.md) para más detalles.
