@@ -11,20 +11,23 @@
             <h5 class="mb-0">Filtrar Pedidos</h5>
         </div>
         <div class="card-body">
-            <form class="row g-3" method="get">
+            <form class="row g-3" method="get" action="{{ url_for('admin_pedidos') }}">
                 <div class="col-md-4">
                     <label for="estado" class="form-label">Estado del Pedido</label>
                     <select class="form-select" id="estado" name="estado">
                         <option value="">Todos los estados</option>
-                        <option value="Pendiente">Pendiente</option>
-                        <option value="En proceso">En proceso</option>
-                        <option value="Enviado">Enviado</option>
-                        <option value="Entregado">Entregado</option>
-                        <option value="Cancelado">Cancelado</option>
+                        <option value="Pendiente" {% if filtro_actual == 'Pendiente' %}selected{% endif %}>Pendiente</option>
+                        <option value="En proceso" {% if filtro_actual == 'En proceso' %}selected{% endif %}>En proceso</option>
+                        <option value="Enviado" {% if filtro_actual == 'Enviado' %}selected{% endif %}>Enviado</option>
+                        <option value="Entregado" {% if filtro_actual == 'Entregado' %}selected{% endif %}>Entregado</option>
+                        <option value="Cancelado" {% if filtro_actual == 'Cancelado' %}selected{% endif %}>Cancelado</option>
                     </select>
                 </div>
-                <div class="col-md-4 d-flex align-items-end">
+                <div class="col-md-8 d-flex align-items-end">
                     <button type="submit" class="btn btn-primary">Filtrar</button>
+                    {% if filtro_actual %}
+                        <a href="{{ url_for('admin_pedidos') }}" class="btn btn-outline-secondary ms-2">Limpiar filtro</a>
+                    {% endif %}
                 </div>
             </form>
         </div>

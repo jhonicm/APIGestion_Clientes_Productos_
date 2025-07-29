@@ -656,13 +656,23 @@ def admin_eliminar_producto(producto_id):
 @app.route('/admin/pedidos')
 @admin_required
 def admin_pedidos():
+    headers = {"Authorization": f"{session['token_type']} {session['access_token']}"}
+    
+    # Obtener el estado del filtro de la URL
+    estado_filtro = request.args.get('estado', '')
+    
     try:
-        headers = {"Authorization": f"{session['token_type']} {session['access_token']}"}
+        # Obtener todos los pedidos
         response = requests.get(f"{API_URL}/pedidos/", headers=headers)
         
         if response.status_code == 200:
             pedidos = response.json()
-            return render_template('admin/pedidos.html', pedidos=pedidos)
+            
+            # Aplicar filtro por estado si se ha seleccionado uno
+            if estado_filtro:
+                pedidos = [pedido for pedido in pedidos if pedido.get('estado') == estado_filtro]
+            
+            return render_template('admin/pedidos.html', pedidos=pedidos, filtro_actual=estado_filtro)
         else:
             flash("Error al obtener los pedidos", "danger")
             return redirect(url_for('admin_dashboard'))
