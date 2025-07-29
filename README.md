@@ -87,36 +87,6 @@ radical_k9/
    - **API Backend**: `http://localhost:8000`
    - **Documentación de la API**: `http://localhost:8000/docs`
 
-## Acceso al sistema
-
-### Cliente de prueba
-- **Usuario**: cliente@example.com
-- **Contraseña**: password123
-
-### Administrador de prueba
-- **Usuario**: admin@example.com
-- **Contraseña**: admin123
-
-## Principales rutas del frontend
-
-### Rutas públicas
-- `/` - Página principal
-- `/productos` - Catálogo de productos
-- `/contactanos` - Información de la tienda y contacto
-- `/login` - Inicio de sesión
-- `/registro` - Registro de nuevos usuarios
-
-### Rutas de cliente (requieren autenticación)
-- `/carrito` - Carrito de compras
-- `/checkout` - Proceso de compra
-- `/mis-pedidos` - Historial de pedidos del cliente
-- `/perfil` - Gestión del perfil de usuario
-
-### Rutas de administración (requieren rol admin)
-- `/admin/dashboard` - Panel principal de administración
-- `/admin/productos` - Gestión de productos
-- `/admin/pedidos` - Gestión de pedidos
-- `/admin/clientes` - Gestión de clientes
 
 ## Endpoints principales de la API
 
