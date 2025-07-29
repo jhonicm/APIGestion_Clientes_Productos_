@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Nuestra tienda - Radical K9{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="text-center mb-4">Nuestra tienda</h1>
+    
+    <div class="row">
+        <div class="col-lg-8 mx-auto mb-4">
+            <img src="{{ url_for('static', filename='img/tienda.jpg') }}" class="img-fluid rounded shadow" alt="Tienda Radical K9" 
+                 onerror="this.onerror=null; this.src='https://via.placeholder.com/800x400?text=Tienda+Radical+K9';">
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-6 mx-auto text-center">
+            <div class="card shadow-sm p-4">
+                <h4 class="text-uppercase mb-3">RADICAL ECUADOR</h4>
+                <p><strong>Email:</strong> radicalecuador1@gmail.com</p>
+                <p><strong>Convencional:</strong> 3041473</p>
+                <p><strong>Celular:</strong> +593 98 153 7857</p>
+                <p><strong>Dirección:</strong> Paulina Hernandez 540-215 y 540F</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

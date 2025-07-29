@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Radical K9 - Equipos Profesionales Caninos{% endblock %}
+
+{% block content %}
+<div class="container text-center py-5">
+    <h2 class="mb-3">Radical-K9</h2>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <p class="mb-4">Ofrecemos productos de alta calidad diseñados especialmente para perros K9 policiales y militares. Estamos aquí para ayudarte a diseñar soluciones locales y duraderas. Nos comprometemos a brindar un servicio excepcional a nuestros clientes</p>
+            
+            <a href="{{ url_for('index') }}" class="btn btn-dark mb-5">Conócenos</a>
+        </div>
+    </div>
+    
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-6">
+            <img src="{{ url_for('static', filename='img/banner.png') }}" class="img-fluid hero-banner" alt="Radical K9">
+        </div>
+    </div>
+    
+<h3 class="mb-4">Algunos de nuestros productos</h3>
+    
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <img src="{{ url_for('static', filename='img/arnes_des.jpg') }}" class="card-img-top" alt="Arnes de descenso">
+            <div class="card-body">
+                <h5>$115.0</h5>
+                <p class="card-title">Arnes de descenso</p>
+                <a href="#" class="btn btn-sm btn-outline-dark">Añadir al carrito</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <img src="{{ url_for('static', filename='img/collar_electrico.jpg') }}" class="card-img-top" alt="Collar MiniEducator E-Collar">
+            <div class="card-body">
+                <h5>$300.0</h5>
+                <p class="card-title">Collar MiniEducator E-Collar</p>
+                <a href="#" class="btn btn-sm btn-outline-dark">Añadir al carrito</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <img src="{{ url_for('static', filename='img/mordedor.jpg') }}" class="card-img-top" alt="Mordedor de Entrenamiento">
+            <div class="card-body">
+                <h5>$20.0</h5>
+                <p class="card-title">Mordedor de Entrenamiento</p>
+                <a href="#" class="btn btn-sm btn-outline-dark">Añadir al carrito</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Panel de Administración - Radical K9{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h1 class="mb-4 fw-bold">Panel de Administración</h1>
+    
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-box-seam fs-1 mb-3 text-primary"></i>
+                    <h5 class="card-title">Gestión de Productos</h5>
+                    <p class="card-text">Administrar el catálogo de productos: crear, editar y eliminar.</p>
+                    <a href="{{ url_for('admin_productos') }}" class="btn btn-primary w-100">Ir a Productos</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-clipboard-check fs-1 mb-3 text-primary"></i>
+                    <h5 class="card-title">Gestión de Pedidos</h5>
+                    <p class="card-text">Ver y actualizar el estado de los pedidos realizados.</p>
+                    <a href="{{ url_for('admin_pedidos') }}" class="btn btn-primary w-100">Ir a Pedidos</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-people fs-1 mb-3 text-primary"></i>
+                    <h5 class="card-title">Gestión de Clientes</h5>
+                    <p class="card-text">Consultar la información de los clientes registrados.</p>
+                    <a href="{{ url_for('admin_clientes') }}" class="btn btn-primary w-100">Ir a Clientes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">Información del Sistema</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="lead">Bienvenido al panel de administración de Radical K9</p>
+                            <p>Desde aquí podrás gestionar todos los aspectos de tu tienda online de equipamiento para perros.</p>
+                            <ul>
+                                <li><strong>Productos:</strong> Añade, edita o elimina productos del catálogo.</li>
+                                <li><strong>Pedidos:</strong> Consulta y actualiza el estado de los pedidos de los clientes.</li>
+                                <li><strong>Clientes:</strong> Gestiona la información de los clientes registrados.</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Radical K9 Logo" class="img-fluid" style="max-width: 200px;">
+                            <p class="text-muted mt-3">Panel de administración v1.0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Carrito - Radical K9{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4">Tu Carrito</h2>
+    
+    {% if productos %}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in productos %}
+                    <tr>
+                        <td>{{ item.nombre }}</td>
+                        <td>${{ item.precio }}</td>
+                        <td>
+                            <input type="number" min="1" value="{{ item.cantidad }}" 
+                                   class="form-control" style="width: 80px"
+                                   onchange="actualizarCantidad({{ item.id }}, this.value)">
+                        </td>
+                        <td>${{ item.precio * item.cantidad }}</td>
+                        <td>
+                            <button class="btn btn-sm btn-danger" 
+                                    onclick="eliminarProducto({{ item.id }})">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                        <td colspan="2">${{ total }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+            
+            <div class="d-flex justify-content-between mt-4">
+                <a href="{{ url_for('productos') }}" class="btn btn-outline-primary">
+                    <i class="bi bi-arrow-left"></i> Seguir comprando
+                </a>
+                <a href="{{ url_for('checkout') }}" class="btn btn-success">
+                    Proceder al pago <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    {% else %}
+        <div class="text-center py-5">
+            <h4>Tu carrito está vacío</h4>
+            <p>¿Por qué no añades algunos de nuestros productos?</p>
+            <a href="{{ url_for('productos') }}" class="btn btn-primary mt-3">
+                Ver productos
+            </a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function actualizarCantidad(productoId, cantidad) {
+    fetch('/actualizar-carrito', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            producto_id: productoId,
+            cantidad: cantidad
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        }
+    });
+}
+
+function eliminarProducto(productoId) {
+    if (confirm('¿Estás seguro de que quieres eliminar este producto?')) {
+        fetch('/eliminar-del-carrito', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                producto_id: productoId
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            }
+        });
+    }
+}
+</script>
+{% endblock %}

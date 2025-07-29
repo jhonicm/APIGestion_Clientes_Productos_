@@ -1,0 +1,80 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Editar Producto - Radical K9{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url_for('admin_productos') }}">Productos</a></li>
+                    <li class="breadcrumb-item active">Editar Producto</li>
+                </ol>
+            </nav>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Editar Producto: {{ producto.nombre }}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            {% if producto.imagen_url %}
+                                <div class="text-center">
+                                    <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}" class="img-thumbnail" style="max-height: 200px;">
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <form action="{{ url_for('admin_editar_producto', producto_id=producto.id) }}" method="post" enctype="multipart/form-data">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="nombre" class="form-label">Nombre del Producto*</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" value="{{ producto.nombre }}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="precio" class="form-label">Precio*</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="precio" name="precio" step="0.01" min="0" value="{{ producto.precio }}" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="stock" class="form-label">Stock*</label>
+                                <input type="number" class="form-control" id="stock" name="stock" min="0" value="{{ producto.stock }}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="imagen" class="form-label">Imagen del Producto</label>
+                                <input type="file" class="form-control" id="imagen" name="imagen" accept=".jpg,.jpeg,.png,.gif,.webp">
+                                <div class="form-text">Subir nueva imagen (opcional). Si no selecciona una nueva imagen, se mantendrá la actual.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">Descripción del Producto</label>
+                            <textarea class="form-control" id="descripcion" name="descripcion" rows="4">{{ producto.descripcion or '' }}</textarea>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="activo" name="activo" {% if producto.activo %}checked{% endif %}>
+                            <label class="form-check-label" for="activo">Producto Activo</label>
+                            <div class="form-text">Desmarque para ocultar el producto en la tienda</div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-end">
+                            <a href="{{ url_for('admin_productos') }}" class="btn btn-secondary me-2">Cancelar</a>
+                            <button type="submit" class="btn btn-primary">Actualizar Producto</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Gestión de Productos - Radical K9{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="fw-bold">Gestión de Productos</h1>
+        <a href="{{ url_for('admin_nuevo_producto') }}" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Nuevo Producto
+        </a>
+    </div>
+    
+    {% if productos %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for producto in productos %}
+                    <tr>
+                        <td>{{ producto.id }}</td>
+                        <td>
+                            {% if producto.imagen_url %}
+                                <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}" style="height: 50px; width: auto;">
+                            {% else %}
+                                <span class="badge bg-secondary">Sin imagen</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ producto.nombre }}</td>
+                        <td>
+                            {% if producto.precio_formateado %}
+                                {{ producto.precio_formateado }}
+                            {% else %}
+                                ${{ producto.precio }} USD
+                            {% endif %}
+                        </td>
+                        <td>{{ producto.stock }}</td>
+                        <td>
+                            {% if producto.activo %}
+                                <span class="badge bg-success">Activo</span>
+                            {% else %}
+                                <span class="badge bg-danger">Inactivo</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ url_for('admin_editar_producto', producto_id=producto.id) }}" class="btn btn-sm btn-primary">
+                                <i class="bi bi-pencil"></i> Editar
+                            </a>
+                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ producto.id }}">
+                                <i class="bi bi-trash"></i> Eliminar
+                            </button>
+                            
+                            <!-- Modal de confirmación para eliminar -->
+                            <div class="modal fade" id="deleteModal{{ producto.id }}" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Confirmar Eliminación</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Está seguro de que desea eliminar el producto "{{ producto.nombre }}"?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <form action="{{ url_for('admin_eliminar_producto', producto_id=producto.id) }}" method="post">
+                                                <button type="submit" class="btn btn-danger">Confirmar Eliminación</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            No hay productos disponibles en este momento.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

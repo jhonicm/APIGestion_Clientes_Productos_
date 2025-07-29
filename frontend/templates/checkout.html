@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout - Radical K9{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4">Finalizar Compra</h2>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Información de envío</h5>
+                    <form action="{{ url_for('checkout') }}" method="post">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre completo</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="direccion" class="form-label">Dirección de envío</label>
+                            <textarea class="form-control" id="direccion" name="direccion" rows="3" required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="telefono" class="form-label">Teléfono de contacto</label>
+                            <input type="tel" class="form-control" id="telefono" name="telefono" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Correo electrónico</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Confirmar pedido</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Resumen del pedido</h5>
+                    <ul class="list-unstyled">
+                        {% for item in productos %}
+                        <li class="d-flex justify-content-between align-items-center mb-2">
+                            <span>{{ item.nombre }} x {{ item.cantidad }}</span>
+                            <span>${{ item.precio * item.cantidad }}</span>
+                        </li>
+                        {% endfor %}
+                        <li class="border-top pt-2 mt-2 d-flex justify-content-between">
+                            <strong>Total</strong>
+                            <strong>${{ total }}</strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

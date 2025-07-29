@@ -1,0 +1,294 @@
+/* Estilos personalizados para Radical K9 */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff;
+}
+
+/* Barra de navegación */
+.navbar {
+    background-color: #ff0000 !important; /* Rojo brillante para la barra de navegación */
+    box-shadow: none;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #ffffff !important;
+}
+
+.nav-link {
+    color: #ffffff !important;
+    font-weight: 500;
+}
+
+/* Cards de productos */
+.card {
+    transition: transform 0.2s ease;
+    border-radius: 0;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.card-img-top {
+    border-radius: 0;
+    height: 180px;
+    object-fit: contain;
+    background-color: #f8f9fa;
+}
+
+.card-body {
+    padding: 15px;
+    text-align: center;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 0.9rem;
+}
+
+/* Botones */
+.btn-primary {
+    background-color: #000000;
+    border-color: #000000;
+    transition: all 0.3s ease;
+    border-radius: 0;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 8px 16px;
+}
+
+.btn-primary:hover {
+    background-color: #333333;
+    border-color: #333333;
+}
+
+/* Footer */
+footer {
+    background-color: #ffffff;
+    padding: 30px 0;
+    border-top: 1px solid #eee;
+}
+
+footer .logo-footer {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+footer h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+footer ul {
+    padding-left: 0;
+}
+
+footer a {
+    color: #555;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: #000;
+    text-decoration: none;
+}
+
+/* Alertas */
+.alert {
+    border-radius: 0;
+    margin-bottom: 20px;
+}
+
+/* Formularios */
+.form-control {
+    border-radius: 0;
+    padding: 10px;
+    height: auto;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #000;
+}
+
+/* Detalle de producto */
+.breadcrumb {
+    background-color: transparent;
+    padding-left: 0;
+    border-radius: 0;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    color: #777;
+}
+
+/* Badges */
+.badge {
+    font-weight: 500;
+    padding: 0.5em 0.8em;
+    border-radius: 0;
+}
+
+/* Panel de administración */
+.admin-sidebar {
+    background-color: #000 !important;
+    color: #fff;
+    min-height: 100vh;
+    padding: 20px 0;
+    position: fixed;
+    left: 0;
+    width: 250px;
+    z-index: 100;
+}
+
+.admin-sidebar .sidebar-header {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.admin-sidebar .sidebar-logo {
+    max-width: 120px;
+    margin-bottom: 15px;
+}
+
+.admin-sidebar ul.components {
+    padding: 20px 0;
+}
+
+.admin-sidebar ul li a {
+    padding: 12px 20px;
+    font-size: 1rem;
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.3s;
+}
+
+.admin-sidebar ul li.active a,
+.admin-sidebar ul li a:hover {
+    background-color: #ff0000;
+    color: #fff;
+}
+
+.admin-content-wrapper {
+    margin-left: 250px;
+    min-height: 100vh;
+    position: relative;
+    width: calc(100% - 250px);
+}
+
+/* Estilos específicos para la pantalla de inicio */
+.hero-banner {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Página de contacto */
+.store-image {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.contact-info {
+    margin-top: 30px;
+}
+
+/* Menu lateral cliente/admin */
+.sidebar {
+    background-color: #000;
+    color: #fff;
+    min-height: 100vh;
+    padding: 20px 0;
+}
+
+.sidebar a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+}
+
+.sidebar a:hover, 
+.sidebar a.active {
+    background-color: #ff0000;
+}
+
+.sidebar .logo {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Estilos para responsive */
+@media (max-width: 768px) {
+    .admin-sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px;
+        transition: all 0.3s;
+        z-index: 9999;
+    }
+    
+    .admin-sidebar.active {
+        left: 0;
+    }
+    
+    .admin-content-wrapper {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    .admin-content-wrapper.active {
+        margin-left: 250px;
+    }
+    
+    .btn-toggle {
+        background-color: #000;
+        color: #fff;
+        border: none;
+        margin-right: 10px;
+    }
+    
+    .btn-toggle:hover {
+        background-color: #333;
+        color: #fff;
+    }
+}
+.navbar .btn {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.navbar .btn-light {
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.navbar .btn-light:hover {
+    background-color: #f8f9fa;
+    border-color: #ccc;
+}
+
+/* Botón cerrar sesión */
+.btn-logout {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+}

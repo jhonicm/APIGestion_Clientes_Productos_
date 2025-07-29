@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Iniciar Sesión - Radical K9{% endblock %}
+
+{% block content %}
+<div class="container py-5 text-center">
+    <h2 class="mb-4">Inicio de Sesión</h2>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <form method="POST" action="{{ url_for('login') }}" class="mt-4">
+                <div class="mb-4">
+                    <label for="username" class="form-label text-start d-block">Ingrese su usuario:</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="form-label text-start d-block">Ingrese su Contraseña:</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3 px-4">Iniciar Sesión</button>
+            </form>
+            
+            <div class="mt-4">
+                <a href="{{ url_for('registro') }}" class="btn btn-outline-secondary">Registrarse</a>
+                <a href="{{ url_for('index') }}" class="btn btn-outline-secondary ms-2">Volver al inicio</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
