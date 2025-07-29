@@ -136,5 +136,5 @@ radical_k9/
 
 ## Autores
 
-- **Jhon Cordova** - *Desarrollo completo* - [jhonicm](https://github.com/jhonicm)
+- **Jhon Israel Cordova Mosquera** - *Desarrollo completo* - [jhonicm](https://github.com/jhonicm)
 
