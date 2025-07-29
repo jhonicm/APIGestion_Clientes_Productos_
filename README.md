@@ -4,23 +4,19 @@ Este proyecto implementa un sistema completo de comercio electrónico para la ge
 
 ## Funcionalidades
 
-1. **Autenticación y Autorización**
-   - Sistema de login para clientes y administradores
-   - Autenticación basada en JWT (JSON Web Tokens)
-   - Diferentes niveles de permisos según el rol
 
-2. **Gestión de Productos**
+1. **Gestión de Productos**
    - Listado de todos los productos disponibles
    - Detalles de productos individuales
    - Crear, actualizar y eliminar productos (solo admin)
    - Control de stock
 
-3. **Gestión de Clientes**
+2. **Gestión de Clientes**
    - Registro de nuevos clientes
    - Consulta de información del cliente
    - Gestión de perfiles
 
-4. **Gestión de Pedidos**
+3. **Gestión de Pedidos**
    - Creación de nuevos pedidos
    - Consulta de estado de pedidos
    - Filtrado por cliente y estado
@@ -86,7 +82,7 @@ radical_k9/
 ```
 
 
-5. Accede a la aplicación:
+4. Accede a la aplicación:
    - **Frontend (Tienda)**: `http://localhost:5000`
    - **API Backend**: `http://localhost:8000`
    - **Documentación de la API**: `http://localhost:8000/docs`
