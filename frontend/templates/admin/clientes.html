@@ -27,7 +27,13 @@
                         <td>{{ cliente.nombre }}</td>
                         <td>{{ cliente.email }}</td>
                         <td>{{ cliente.telefono or 'N/A' }}</td>
-                        <td>{{ cliente.fecha_registro }}</td>
+                        <td>
+                            {% if cliente.fecha_registro_formateada %}
+                                {{ cliente.fecha_registro_formateada }}
+                            {% else %}
+                                {{ cliente.fecha_registro|fecha_bonita }}
+                            {% endif %}
+                        </td>
                         <td>
                             {% if cliente.activo %}
                                 <span class="badge bg-success">Activo</span>

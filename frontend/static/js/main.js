@@ -12,6 +12,42 @@ document.addEventListener('DOMContentLoaded', function() {
         return new bootstrap.Popover(popoverTriggerEl);
     });
     
+    // Formatear fechas ISO en elementos con la clase 'fecha-iso'
+    formatearFechasISO();
+    
     // Mensaje de bienvenida en la consola
     console.log('¡Bienvenido a Radical K9!');
 });
+
+/**
+ * Función para formatear fechas ISO a formato amigable (hora Ecuador GMT-5)
+ * Busca todos los elementos con la clase 'fecha-iso' y convierte su contenido
+ */
+function formatearFechasISO() {
+    const elementosFecha = document.querySelectorAll('.fecha-iso');
+    
+    elementosFecha.forEach(function(elemento) {
+        const fechaISO = elemento.textContent.trim();
+        if (fechaISO) {
+            try {
+                // Crear objeto Date desde la cadena ISO
+                const fechaObj = new Date(fechaISO);
+                
+                // Ajustar a hora de Ecuador (GMT-5)
+                // No es necesario ajustar manualmente ya que el navegador lo hace según zona horaria local
+                
+                // Formatear la fecha en formato DD/MM/YYYY HH:MM
+                const dia = String(fechaObj.getDate()).padStart(2, '0');
+                const mes = String(fechaObj.getMonth() + 1).padStart(2, '0'); // Los meses van de 0-11
+                const anio = fechaObj.getFullYear();
+                const hora = String(fechaObj.getHours()).padStart(2, '0');
+                const minutos = String(fechaObj.getMinutes()).padStart(2, '0');
+                
+                const fechaFormateada = `${dia}/${mes}/${anio} ${hora}:${minutos}`;
+                elemento.textContent = fechaFormateada;
+            } catch (error) {
+                console.error('Error al formatear fecha:', error);
+            }
+        }
+    });
+}

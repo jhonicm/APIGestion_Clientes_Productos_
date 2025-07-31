@@ -24,6 +24,9 @@
                         <a class="nav-link" href="{{ url_for('productos') }}">Productos</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('conocenos') }}">Conócenos</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('contactanos') }}">Contáctanos</a>
                     </li>
                     {% if session.get('access_token') %}
@@ -85,7 +88,7 @@
                 <div class="col-md-3">
                     <h5>Sobre nosotros</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#">Conócenos</a></li>
+                        <li><a href="{{ url_for('conocenos') }}">Conócenos</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3">

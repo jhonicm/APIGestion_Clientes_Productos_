@@ -77,7 +77,13 @@
                                 <span class="badge bg-secondary">{{ pedido.estado }}</span>
                             {% endif %}
                         </td>
-                        <td>{{ pedido.fecha }}</td>
+                        <td>
+                            {% if pedido.fecha_formateada %}
+                                {{ pedido.fecha_formateada }}
+                            {% else %}
+                                {{ pedido.fecha|fecha_bonita }}
+                            {% endif %}
+                        </td>
                         <td>
                             <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal{{ pedido.id }}">
                                 <i class="bi bi-pencil"></i> Estado

@@ -16,13 +16,12 @@ connection_string = (
     f"DRIVER={{{AZURE_SQL_DRIVER}}};"
     f"SERVER={AZURE_SQL_SERVER};"
     f"DATABASE={AZURE_SQL_DATABASE};"
-    f"UID={AZURE_SQL_USERNAME};"  # Quitar el @server_name
+    f"UID={AZURE_SQL_USERNAME};"  
     f"PWD={AZURE_SQL_PASSWORD};"
     "Encrypt=yes;"
     "TrustServerCertificate=no;"
     "Connection Timeout=30;"
 )
-# Añadir después de la definición de connection_string
 try:
     # Intentar una conexión de prueba
     test_conn = pyodbc.connect(connection_string)

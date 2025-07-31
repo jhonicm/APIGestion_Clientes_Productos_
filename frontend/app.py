@@ -23,6 +23,22 @@ app.secret_key = os.getenv('SECRET_KEY', 'clave-secreta-temporal')
 # URL de la API
 API_URL = os.getenv('API_URL', 'http://api:8000')
 
+# Filtros personalizados para Jinja
+@app.template_filter('fecha_bonita')
+def fecha_bonita_filter(fecha_str):
+    """Convierte una fecha ISO a un formato más amigable: DD/MM/YYYY HH:MM (hora Ecuador GMT-5)"""
+    if not fecha_str:
+        return ""
+    try:
+        from datetime import datetime, timedelta
+        fecha_obj = datetime.fromisoformat(fecha_str.replace('Z', '+00:00'))
+        # Ajustar a hora de Ecuador (GMT-5)
+        fecha_ecuador = fecha_obj - timedelta(hours=5)
+        return fecha_ecuador.strftime('%d/%m/%Y %H:%M')
+    except Exception as e:
+        print(f"Error al formatear fecha con filtro: {str(e)}")
+        return fecha_str
+
 # Decorador para proteger rutas de administrador
 def admin_required(f):
     @wraps(f)
@@ -78,6 +94,10 @@ def productos():
 @app.route('/contactanos')
 def contactanos():
     return render_template('contactanos.html')
+    
+@app.route('/conocenos')
+def conocenos():
+    return render_template('conocenos.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -477,24 +497,6 @@ def checkout():
     except Exception as e:
         flash(f"Error al cargar el checkout: {str(e)}", "danger")
         return redirect(url_for('carrito'))
-    
-    try:
-        productos_carrito = []
-        total = 0
-        
-        for producto_id, cantidad in session['carrito'].items():
-            response = requests.get(f"{API_URL}/productos/{producto_id}")
-            if response.status_code == 200:
-                producto = response.json()
-                producto['cantidad'] = cantidad
-                producto['subtotal'] = producto['precio'] * cantidad
-                productos_carrito.append(producto)
-                total += producto['subtotal']
-        
-        return render_template('checkout.html', productos=productos_carrito, total=total)
-    except Exception as e:
-        flash(f"Error al cargar el checkout: {str(e)}", "danger")
-        return redirect(url_for('carrito'))
 
 # Rutas del panel de administración
 @app.route('/admin')
@@ -524,22 +526,28 @@ def admin_productos():
 def admin_nuevo_producto():
     if request.method == 'POST':
         try:
-            # Manejar la subida de la imagen
+            # ===== GESTIÓN DE IMÁGENES DE PRODUCTOS =====
+            # 1. Verificamos si el usuario ha enviado una imagen en el formulario
             if 'imagen' not in request.files:
                 flash('No se ha seleccionado ninguna imagen', 'danger')
                 return redirect(request.url)
             
+            # 2. Obtenemos el archivo de imagen del formulario
             imagen = request.files['imagen']
             if imagen.filename == '':
                 flash('No se ha seleccionado ninguna imagen', 'danger')
                 return redirect(request.url)
             
+            # 3. Procesamos la imagen si es válida
             if imagen and allowed_file(imagen.filename):
-                # Generar un nombre seguro para la imagen
+                # 4. Generamos un nombre de archivo seguro para evitar problemas de seguridad
                 filename = secure_filename(imagen.filename)
-                # Asegurar que el directorio existe
+                
+                # 5. Creamos la carpeta de destino si no existe
+                # La ruta será: frontend/static/img/productos/
                 os.makedirs(os.path.join(app.static_folder, 'img', 'productos'), exist_ok=True)
-                # Guardar la imagen
+                
+                # 6. Guardamos la imagen en el servidor
                 imagen_path = os.path.join(app.static_folder, 'img', 'productos', filename)
                 imagen.save(imagen_path)
                 
@@ -591,19 +599,24 @@ def admin_editar_producto(producto_id):
                 "activo": True
             }
             
-            # Manejo de la imagen
+            # ===== ACTUALIZACIÓN DE IMÁGENES DE PRODUCTOS =====
+            # Solo procesamos la imagen si el usuario ha subido una nueva
             if 'imagen' in request.files and request.files['imagen'].filename != '':
                 imagen = request.files['imagen']
                 if allowed_file(imagen.filename):
-                    # Generar un nombre seguro para la imagen
+                    # 1. Generamos un nombre seguro para la imagen
                     filename = secure_filename(imagen.filename)
-                    # Asegurar que el directorio existe
+                    
+                    # 2. Creamos la carpeta de destino si no existe
+                    # La ruta será: frontend/static/img/productos/
                     os.makedirs(os.path.join(app.static_folder, 'img', 'productos'), exist_ok=True)
-                    # Guardar la imagen
+                    
+                    # 3. Guardamos la imagen en el servidor
                     imagen_path = os.path.join(app.static_folder, 'img', 'productos', filename)
                     imagen.save(imagen_path)
                     
-                    # Actualizar la URL de la imagen
+                    # 4. Actualizamos la URL de la imagen en la base de datos
+                    # Esta URL es relativa a la carpeta static
                     producto_actualizado["imagen_url"] = f"img/productos/{filename}"
             
             headers["Content-Type"] = "application/json"
@@ -672,6 +685,21 @@ def admin_pedidos():
             if estado_filtro:
                 pedidos = [pedido for pedido in pedidos if pedido.get('estado') == estado_filtro]
             
+            # Formatear las fechas para una visualización más amigable (hora Ecuador)
+            from datetime import datetime, timedelta
+            for pedido in pedidos:
+                if 'fecha' in pedido and pedido['fecha']:
+                    try:
+                        # Convertir la fecha ISO a objeto datetime
+                        fecha_obj = datetime.fromisoformat(pedido['fecha'].replace('Z', '+00:00'))
+                        # Ajustar a hora de Ecuador (GMT-5)
+                        fecha_ecuador = fecha_obj - timedelta(hours=5)
+                        # Formatear la fecha de manera amigable
+                        pedido['fecha_formateada'] = fecha_ecuador.strftime('%d/%m/%Y %H:%M')
+                    except Exception as e:
+                        print(f"Error al formatear fecha: {str(e)}")
+                        pedido['fecha_formateada'] = pedido['fecha']
+            
             return render_template('admin/pedidos.html', pedidos=pedidos, filtro_actual=estado_filtro)
         else:
             flash("Error al obtener los pedidos", "danger")
@@ -717,6 +745,21 @@ def admin_clientes():
         
         if response.status_code == 200:
             clientes = response.json()
+            
+            # Formatear las fechas de registro para una visualización más amigable (hora Ecuador)
+            from datetime import datetime, timedelta
+            for cliente in clientes:
+                if 'fecha_registro' in cliente and cliente['fecha_registro']:
+                    try:
+                        # Convertir la fecha ISO a objeto datetime
+                        fecha_obj = datetime.fromisoformat(cliente['fecha_registro'].replace('Z', '+00:00'))
+                        # Ajustar a hora de Ecuador (GMT-5)
+                        fecha_ecuador = fecha_obj - timedelta(hours=5)
+                        # Formatear la fecha de manera amigable
+                        cliente['fecha_registro_formateada'] = fecha_ecuador.strftime('%d/%m/%Y %H:%M')
+                    except Exception as e:
+                        print(f"Error al formatear fecha de registro: {str(e)}")
+                        cliente['fecha_registro_formateada'] = cliente['fecha_registro']
             
             # Para cada cliente, obtener sus pedidos
             for cliente in clientes:

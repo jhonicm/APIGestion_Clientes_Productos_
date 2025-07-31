@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Conócenos - Radical K9{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h1 class="text-center mb-4">Radical K9</h1>
+                    
+                    <div class="text-center mb-4">
+                        <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Radical K9" class="img-fluid" style="max-width: 200px;">
+                    </div>
+                    
+                    <p class="lead text-center">
+                        Ofrecemos productos de alta calidad diseñados especialmente para perros K9 policiales y militares. 
+                        Estamos aquí para ayudarte a diseñar soluciones locales y duraderas. Nos comprometemos a brindar 
+                        un servicio excepcional a nuestros clientes.
+                    </p>
+                    
+                    <hr>
+                    
+                    <div class="row mt-5">
+                        <div class="col-md-6 mb-4">
+                            <h3>Nuestra Misión</h3>
+                            <p>
+                                Proporcionar a los adiestradores caninos profesionales y propietarios de perros de trabajo 
+                                accesorios de la más alta calidad que garanticen durabilidad, funcionalidad y seguridad.
+                            </p>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <h3>Nuestra Visión</h3>
+                            <p>
+                                Ser reconocidos como la marca líder en Ecuador en equipamiento para perros de trabajo y 
+                                servicio, destacando por la calidad e innovación en nuestros productos.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-12 mt-3">
+                            <h3>¿Por qué elegirnos?</h3>
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <i class="bi bi-check-circle-fill text-success me-2"></i> 
+                                    Materiales de alta resistencia y durabilidad
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="bi bi-check-circle-fill text-success me-2"></i> 
+                                    Diseños adaptados a las necesidades específicas del trabajo canino
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="bi bi-check-circle-fill text-success me-2"></i> 
+                                    Asesoría personalizada por especialistas en adiestramiento
+                                </li>
+                                <li class="list-group-item">
+                                    <i class="bi bi-check-circle-fill text-success me-2"></i> 
+                                    Garantía en todos nuestros productos
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-5">
+                        <a href="{{ url_for('contactanos') }}" class="btn btn-primary btn-lg">Contáctanos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
