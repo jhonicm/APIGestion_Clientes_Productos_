@@ -5,10 +5,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-AZURE_SQL_SERVER = os.getenv("AZURE_SQL_SERVER", "")
-AZURE_SQL_DATABASE = os.getenv("AZURE_SQL_DATABASE", "")
-AZURE_SQL_USERNAME = os.getenv("AZURE_SQL_USERNAME", "")
-AZURE_SQL_PASSWORD = os.getenv("AZURE_SQL_PASSWORD", "")
+AZURE_SQL_SERVER = os.getenv("AZURE_SQL_SERVER", "sistema-ventas-2025.database.windows.net")
+AZURE_SQL_DATABASE = os.getenv("AZURE_SQL_DATABASE", "GestionPedidos")
+AZURE_SQL_USERNAME = os.getenv("AZURE_SQL_USERNAME", "radicaluser@sistema-ventas-2025")
+AZURE_SQL_PASSWORD = os.getenv("AZURE_SQL_PASSWORD", "05122004Jhon")
 AZURE_SQL_DRIVER = os.getenv("AZURE_SQL_DRIVER", "ODBC Driver 17 for SQL Server")
 
 
@@ -20,15 +20,15 @@ connection_string = (
     f"PWD={AZURE_SQL_PASSWORD};"
     "Encrypt=yes;"
     "TrustServerCertificate=no;"
-    "Connection Timeout=30;"
+    "Connection Timeout=60;"
 )
 try:
-    # Intentar una conexión de prueba
     test_conn = pyodbc.connect(connection_string)
     test_conn.close()
     print("Conexión de prueba exitosa")
 except pyodbc.Error as e:
     print(f"Error de conexión: {str(e)}")
+    print(f"Cadena de conexión utilizada: {connection_string}")
     print(f"Cadena de conexión utilizada: {connection_string}")
 
 # Crear la URL de SQLAlchemy usando la conexión ODBC

@@ -85,39 +85,42 @@
                             {% endif %}
                         </td>
                         <td>
-                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal{{ pedido.id }}">
-                                <i class="bi bi-pencil"></i> Estado
-                            </button>
-                            
-                            <!-- Modal para actualizar estado -->
-                            <div class="modal fade" id="updateModal{{ pedido.id }}" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Actualizar Estado del Pedido</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <form action="{{ url_for('admin_actualizar_estado_pedido', pedido_id=pedido.id) }}" method="post">
-                                            <div class="modal-body">
-                                                <div class="mb-3">
-                                                    <label for="estado{{ pedido.id }}" class="form-label">Estado del Pedido</label>
-                                                    <select class="form-select" id="estado{{ pedido.id }}" name="estado" required>
-                                                        <option value="Pendiente" {% if pedido.estado == 'Pendiente' %}selected{% endif %}>Pendiente</option>
-                                                        <option value="En proceso" {% if pedido.estado == 'En proceso' %}selected{% endif %}>En proceso</option>
-                                                        <option value="Enviado" {% if pedido.estado == 'Enviado' %}selected{% endif %}>Enviado</option>
-                                                        <option value="Entregado" {% if pedido.estado == 'Entregado' %}selected{% endif %}>Entregado</option>
-                                                        <option value="Cancelado" {% if pedido.estado == 'Cancelado' %}selected{% endif %}>Cancelado</option>
-                                                    </select>
+                            {% if pedido.estado != "Entregado" and pedido.estado != "Cancelado" %}
+                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal{{ pedido.id }}">
+                                    <i class="bi bi-pencil"></i> Estado
+                                </button>
+                                <!-- Modal SOLO si no está entregado ni cancelado -->
+                                <div class="modal fade" id="updateModal{{ pedido.id }}" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Actualizar Estado del Pedido</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form action="{{ url_for('admin_actualizar_estado_pedido', pedido_id=pedido.id) }}" method="post">
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <label for="estado{{ pedido.id }}" class="form-label">Estado del Pedido</label>
+                                                        <select class="form-select" id="estado{{ pedido.id }}" name="estado" required>
+                                                            <option value="Pendiente" {% if pedido.estado == 'Pendiente' %}selected{% endif %}>Pendiente</option>
+                                                            <option value="En proceso" {% if pedido.estado == 'En proceso' %}selected{% endif %}>En proceso</option>
+                                                            <option value="Enviado" {% if pedido.estado == 'Enviado' %}selected{% endif %}>Enviado</option>
+                                                            <option value="Entregado" {% if pedido.estado == 'Entregado' %}selected{% endif %}>Entregado</option>
+                                                            <option value="Cancelado" {% if pedido.estado == 'Cancelado' %}selected{% endif %}>Cancelado</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                <button type="submit" class="btn btn-primary">Actualizar Estado</button>
-                                            </div>
-                                        </form>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    <button type="submit" class="btn btn-primary">Actualizar Estado</button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            {% else %}
+                                <span class="badge bg-success">No editable</span>
+                            {% endif %}
                         </td>
                     </tr>
                     {% endfor %}

@@ -26,7 +26,7 @@ app.add_middleware(
 )
 
 # Configuración JWT
-SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"  # En producción usar variable de entorno
+SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7" 
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
@@ -378,9 +378,14 @@ def update_pedido_estado(
     db = Depends(database.get_db), 
     admin_user = Depends(get_admin_user)
 ):
-    db_pedido = crud.update_pedido_estado(db, pedido_id, estado_update.estado)
+    db_pedido = crud.get_pedido(db, pedido_id)
     if db_pedido is None:
         raise HTTPException(status_code=404, detail="Pedido no encontrado")
+    
+    if db_pedido.estado in ["Entregado", "Cancelado"]:
+        raise HTTPException(status_code=400, detail=f"No se puede cambiar el estado de un pedido {db_pedido.estado.lower()}")
+    
+    db_pedido = crud.update_pedido_estado(db, pedido_id, estado_update.estado)
     return db_pedido
 
 # Ruta específica para obtener los pedidos de un cliente por su ID
@@ -408,4 +413,4 @@ def health_check():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8080)

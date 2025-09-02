@@ -30,15 +30,9 @@ function formatearFechasISO() {
         const fechaISO = elemento.textContent.trim();
         if (fechaISO) {
             try {
-                // Crear objeto Date desde la cadena ISO
                 const fechaObj = new Date(fechaISO);
-                
-                // Ajustar a hora de Ecuador (GMT-5)
-                // No es necesario ajustar manualmente ya que el navegador lo hace según zona horaria local
-                
-                // Formatear la fecha en formato DD/MM/YYYY HH:MM
                 const dia = String(fechaObj.getDate()).padStart(2, '0');
-                const mes = String(fechaObj.getMonth() + 1).padStart(2, '0'); // Los meses van de 0-11
+                const mes = String(fechaObj.getMonth() + 1).padStart(2, '0'); 
                 const anio = fechaObj.getFullYear();
                 const hora = String(fechaObj.getHours()).padStart(2, '0');
                 const minutos = String(fechaObj.getMinutes()).padStart(2, '0');

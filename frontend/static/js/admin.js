@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Elementos del menú móvil
+
     const menuToggle = document.getElementById('menuToggle');
     const mobileSidebar = document.getElementById('mobileSidebar');
     const closeSidebar = document.getElementById('closeSidebar');

@@ -6,7 +6,6 @@ from datetime import datetime
 from dotenv import load_dotenv
 from functools import wraps
 
-# Configuración para subida de archivos
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
 
 def allowed_file(filename):
@@ -21,12 +20,11 @@ app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'clave-secreta-temporal')
 
 # URL de la API
-API_URL = os.getenv('API_URL', 'http://api:8000')
+API_URL = os.getenv('API_URL', 'http://api:8080')
 
 # Filtros personalizados para Jinja
 @app.template_filter('fecha_bonita')
 def fecha_bonita_filter(fecha_str):
-    """Convierte una fecha ISO a un formato más amigable: DD/MM/YYYY HH:MM (hora Ecuador GMT-5)"""
     if not fecha_str:
         return ""
     try:
@@ -39,7 +37,6 @@ def fecha_bonita_filter(fecha_str):
         print(f"Error al formatear fecha con filtro: {str(e)}")
         return fecha_str
 
-# Decorador para proteger rutas de administrador
 def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):

@@ -3,7 +3,6 @@ from passlib.context import CryptContext
 from . import models, schemas
 from typing import Optional, List
 
-# Configuración del hashing de contraseñas
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # Función para verificar contraseña

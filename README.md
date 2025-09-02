@@ -84,8 +84,8 @@ radical_k9/
 
 4. Accede a la aplicación:
    - **Frontend (Tienda)**: `http://localhost:5000`
-   - **API Backend**: `http://localhost:8000`
-   - **Documentación de la API**: `http://localhost:8000/docs`
+   - **API Backend**: `http://localhost:8080`
+   - **Documentación de la API**: `http://localhost:8080/docs`
 
 
 ## Endpoints principales de la API
